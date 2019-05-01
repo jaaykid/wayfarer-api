@@ -1,5 +1,5 @@
-const mognoose = require('mongoose');
-const Schema = mognoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema
 
 const PostSchema = new Schema ({
     title: String,

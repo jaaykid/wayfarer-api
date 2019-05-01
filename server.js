@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+// const session = require('express-session');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Controllers 
 const contactsCtrl = require('./controllers/userCtrl');
 const postsCtrl = require('./controllers/postCtrl')
+const cityCtrl = require('./controllers/cityCtrl')
 
 
 
@@ -24,22 +25,20 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
 
 
-// ---------------------------- HTML Routes -------------------------- //
-
-app.get('/', (req,res) => {
-    res.send('<h1> This is where react will be </h1>')
+// ---------------------------- API Routes -------------------------- //
+app.get('/', (req, res) => {
+    res.send('<h1>React will go here</h1>')
 })
 
+//  Users
+app.use('/api/v1/users', contactsCtrl);
 
-// ---------------------------- API Routes -------------------------- //
+// Posts 
 
+app.use('/api/v1/posts', postsCtrl);
 
-// Contacts
-// app.use('/api/v1/users', contactsCtrl);
-
-// // Posts 
-
-// app.use('/api/v1/posts', postsCtrl);
+// Cities 
+app.use('/api/v1/cities', cityCtrl)
 
 
 // ---------------------------- Start Server  -------------------------- //
