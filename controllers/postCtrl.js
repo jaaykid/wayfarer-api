@@ -15,7 +15,19 @@ router.get('/:id', (req, res) => {
         if (err) return status(400).json({status: 400, err: 'something went wrong'});
         res.json({status:200,message:'success', Data:[foundPost]})
     })
-} )
+})
+
+router.post('/', (req, res) => {
+        let profileId = req.params.profile_id;
+        let newPost = new db.Post({
+            title : req.body.title,
+            comment : req.body.comment,
+        }) 
+        db.Post.create(newPost, (err, savedPost) => {
+            if (err) return console.log(err);
+            res.json(savedPost)
+        })  
+})
 
 
 module.exports = router
