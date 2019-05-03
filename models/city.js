@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const CitySchema = new Schema({
+const CitySchema = new Schema([{
     city: String,
-    post: {type: mongoose.Schema.Types.ObjectId, ref: 'Post'},
-    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
-})
+    image: String,
+    description: String,
+}])
 
 
 const City = mongoose.model('City', CitySchema);

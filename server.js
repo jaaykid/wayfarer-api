@@ -1,14 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-// const session = require('express-session');
+const session = require('express-session');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Controllers 
-const contactsCtrl = require('./controllers/userCtrl');
+const profileCtrl = require('./controllers/profileCtrl');
 const postsCtrl = require('./controllers/postCtrl')
 const cityCtrl = require('./controllers/cityCtrl')
-
+const signupCtrl = require('./controllers/signupCtrl')
+const loginCtrl = require('./controllers/loginCtrl');
+const logoutCtrl = require('./controllers/logoutCtrl');
 
 
 // ---------------------------- Middleware -------------------------- //
@@ -20,6 +22,18 @@ app.use((req, res, next) => {
     next();
 });
 
+// Check Session 
+
+app.use(session({
+    name: 'sid', 
+    resave: false, 
+    secret: 'chili cheese dog',
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 15,
+        secure: 'auto', 
+    }
+}))
  
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
@@ -27,18 +41,28 @@ app.use(bodyParser.json())
 
 // ---------------------------- API Routes -------------------------- //
 app.get('/', (req, res) => {
-    res.send('<h1>React will go here</h1>')
+   console.log(req.session)
+   res.send('<h1>React is going to go here</h1>')
 })
 
+// // Login 
+app.use('/api/v1/auth/login', loginCtrl)
+
+// // Register
+app.use('/api/v1/signup', signupCtrl)
+
+// Logout
+app.use('/api/v1/logout', logoutCtrl)
+
 //  Users
-app.use('/api/v1/users', contactsCtrl);
+app.use('/api/v1/profiles', profileCtrl);
 
 // Posts 
-
 app.use('/api/v1/posts', postsCtrl);
 
 // Cities 
 app.use('/api/v1/cities', cityCtrl)
+
 
 
 // ---------------------------- Start Server  -------------------------- //
