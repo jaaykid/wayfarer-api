@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema; 
 
-const ProfileSchema = new Schema ([{
+const ProfileSchema = new Schema ({ 
     username: String,
     password: {type: String, required: true, select: false},
     profilePicture: String,
@@ -10,7 +10,7 @@ const ProfileSchema = new Schema ([{
         type: Date,
         default: Date.now
     },
-}])
+})
 
 
 const Profile = mongoose.model('Profile', ProfileSchema);

@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 
-const PostSchema = new Schema ([{
+const PostSchema = new Schema ({
     title: String,
     comment: String,
-    profile: [{type: mongoose.Schema.Types.ObjectId, ref: 'Profile'}],
-    city: [{type: mongoose.Schema.Types.ObjectId, ref: 'City'}]
-
-}])
+    profile: {type: Schema.Types.ObjectId, ref: 'Profile'},
+    city:{type: Schema.Types.ObjectId, ref: 'City'}
+})
     
 
 const Post = mongoose.model('Post', PostSchema);

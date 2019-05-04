@@ -32,6 +32,14 @@ router.put('/:id', (req, res) => {
     )
 }) 
 
+// Get all post 
+router.get('/:id/post', (req, res) => {
+    db.Post.find({}, (err, allPost) => {
+        if (err) return status(400).json({status: 400, err: 'something went wrong'});
+        res.json(allPost); 
+    })
+}) 
+
 
 // // Create a post with this user
 // router.put('/:id/post', (req, res) => {
