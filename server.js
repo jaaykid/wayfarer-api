@@ -42,7 +42,7 @@ app.use(bodyParser.json())
 // ---------------------------- API Routes -------------------------- //
 app.get('/', (req, res) => {
    console.log(req.session)
-   res.send('<h1>React is going to go here</h1>')
+   res.json({testing: "testing"})
 })
 
 // // Login 
