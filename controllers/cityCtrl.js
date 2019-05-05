@@ -4,18 +4,28 @@ const db = require('../models');
 
 
 router.get('/', (req, res) => {
-    db.User.find( {} , (err, allCities) => {
+    db.City.find( {} , (err, allCities) => {
         if (err) return status(400).json({status: 400, err: 'something went wrong'});
-        res.json({status:200,message:'success', Data:[allCities]})
+        res.json(allCities)
     })
 })
 
+
+// get one city
 router.get('/:id', (req, res) => {
-    db.User.findById(req.params.id, (err, foundCities) => {
+    db.City.find({_id: req.params.id} , (err, allCities) => {
         if (err) return status(400).json({status: 400, err: 'something went wrong'});
-        res.json({status:200,message:'success', Data:[foundCities]})
+        res.json(allCities)
     })
-} )
+})
+
+// get post by city 
+router.get('/:id/posts' , (req, res) => {
+    db.Post.find({city: req.params.id}, (err, foundPost) => {
+        if (err) return console.log(err)
+        res.json(foundPost)
+    })
+})
 
 
 module.exports = router

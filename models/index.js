@@ -8,7 +8,7 @@ mongoose.connect(DB_URL, {useNewUrlParser: true, useFindAndModify: false})
 
 
 module.exports = {
-    User: require('./user'), 
+    Profile: require('./profile'), 
     Post: require('./post'),
     City: require('./city')
 }
