@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const ProfileSchema = new Schema ({ 
     username: String,
-    password: {type: String, required: true, select: false},
+    password: {type: String, required: true},
     profilePicture: String,
     signupDate: {
         type: Date,

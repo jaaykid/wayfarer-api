@@ -17,6 +17,14 @@ router.get('/:id', (req, res) => {
     })
 })
 
+// Get post by profile
+router.get('/:id/posts', (req, res) => {
+    db.Post.find({profile: req.params.id}, (err, foundPosts) => {
+        if (err) return status(400).json({status: 400, err: 'something went wrong'});
+        res.json(foundPosts)
+    })
+})
+
 // Update profile 
 router.put('/:id', (req, res) => {
    let profileId = req.params.id
@@ -31,33 +39,5 @@ router.put('/:id', (req, res) => {
        }
     )
 }) 
-
-// Get all post 
-router.get('/:id/post', (req, res) => {
-    db.Post.find({}, (err, allPost) => {
-        if (err) return status(400).json({status: 400, err: 'something went wrong'});
-        res.json(allPost); 
-    })
-}) 
-
-
-// // Create a post with this user
-// router.put('/:id/post', (req, res) => {
-//     let profileId = req.params.profile_id
-//     db.Profile.findById(profileId, (err, foundProfile) => {
-//         if (err) return console.log(err)
-//         res.json(foundProfile); 
-//     });
-//     let newPost = new db.Post({
-//         title: req.body.title,
-//         comment: req.body.comment
-//     })
-//     db.Post.create(newPost, (err, updatedPost) => {
-//         if(err) return res.status(400).json({message: "Sent post"})
-//         res.json(updatedPost); 
-//     })
-    
-
-// })
 
 module.exports = router

@@ -27,7 +27,6 @@ router.post('/', (req, res) => {
                 req.session.currentProfile = foundProfile._id
                 req.session.currentProfile = {
                 username: foundProfile.username,
-                post: foundProfile.post
                 }
                 console.log(req.session.currentProfile)
                 return res.status(200).json({success: 'this worked wow!'})

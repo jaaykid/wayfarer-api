@@ -5,7 +5,7 @@ const PostSchema = new Schema ({
     title: String,
     comment: String,
     profile: {type: Schema.Types.ObjectId, ref: 'Profile'},
-    city:{type: Schema.Types.ObjectId, ref: 'City'}
+    city: {type: Schema.Types.ObjectId, ref: 'City'},
 })
     
 
