@@ -67,4 +67,4 @@ app.use('/api/v1/cities', cityCtrl)
 
 // ---------------------------- Start Server  -------------------------- //
 
-app.listen(PORT, () => console.log(`server started on port ${PORT}`))
+app.listen(process.env.PORT || 3000);
