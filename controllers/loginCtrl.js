@@ -4,15 +4,6 @@ const db = require('../models');
 const bcrypt = require('bcryptjs')
 
 
-
-// router.get('/', (req, res) => {
-//     console.log(req.session)
-//     if (!req.body.username || !req.body.password) {
-//         return res.status(200).json({error: "password and username field cannot be blank"})
-//     }
-//     res.send()
-// })
-
 router.post('/', (req, res) => {
     if (!req.body.username || !req.body.password) {
         return res.status(200).json({errors:'Please enter your username and password'});
