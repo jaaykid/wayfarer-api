@@ -36,14 +36,10 @@ router.get('/:id/users', (req, res) => {
 
 // create new post
 router.post('/', (req, res) => {
-        let newPost = new db.Post({
-            title : req.body.title,
-            comment : req.body.comment,
-        }) 
-        db.Post.create(newPost, (err, savedPost) => {
-            if (err) return console.log(err);
-            res.json(savedPost)
-        })  
+    let newPost = new db.Post(
+        req.body
+    )
+    res.json(newPost)
 })
 
 

@@ -2,7 +2,7 @@ const db = require('./models')
 
 
 handleError = (err) => {
- console.log(err)
+ return console.log(err)
 }
 
 const newPosts = [
@@ -131,7 +131,7 @@ const newProfiles = [
     preferredCity: "San Francisco"
     },
     {
-    username: "thing1",
+    username: "",
     password: '123', 
     profilePicture: "https://blog.za3k.com/wp-content/uploads/2015/03/default_profile_3.png",
     preferredCity: "San Francisco"
@@ -164,54 +164,32 @@ const newCities = [
 ]
 
 
-db.Profile.deleteMany({}, (err, deletedProfiles) => {
-    if (err) handleError
-    db.Profile.create(newProfiles, (err, allProfiles) => {
+function first() {
+    db.City.deleteMany({}, (err, deletedCities) => {
         if (err) handleError
-        db.City.deleteMany({}, (err, deletedCities) => {
-            if (err) handleError
-            db.City.create(newCities, (err, allCities) => {
+        db.City.create(newCities, (err, allCities) => {
+            if (err) handleError 
+            db.Profile.deleteMany({}, (err, deletedProfile) => {
                 if (err) handleError
-                db.Post.deleteMany({}, (err, deleted) => {
-                    if (err) console.log(err)
-                    console.log('deleted all posts')
-                })
-                newProfiles.forEach(profileData =>{
-                    const updatedProfile = new db.Profile({
-                        username : profileData.username,
-                        password : profileData.password, 
-                        profilePicture : profileData.profilePicture,
-                    })
-                    db.City.findOne({city: profileData.preferredCity}, (err, foundCity) => {
-                        if (err) handleError
-                        updatedProfile.preferredCity = foundCity
-                        updatedProfile.save((err, savedPost) => {
-                            if (err) handleError
+                db.Post.deleteMany({}, (err, deletedPost) => {
+                    newProfiles.forEach(profileData => {
+                        const updatedProfile = new db.Profile({
+                            username : profileData.username,
+                            password : profileData.password, 
+                            profilePicture : profileData.profilePicture,
                         })
-                    })
-                })
-                newPosts.forEach(postData => {
-                    const newPost = new db.Post({
-                        title: postData.title,
-                        comment: postData.comment
-                    })
-                    db.Profile.findOne({username: postData.profile}, (err, foundProfile) => {
-                        if (err) handleError
-                        newPost.profile = foundProfile
-                        newPost.save((err, savedPost) => {
+                        db.City.findOne({city: profileData.preferredCity}, (err, foundCity) => {
                             if (err) handleError
-                        })
-                    })
-                    db.City.findOne({city: postData.city}, (err, foundCity) => {
-                        if (err) handleError
-                        newPost.city = foundCity
-                        newPost.save((err, savedPost) => {
-                            if (err) handleError
+                            updatedProfile.preferredCity = foundCity
+                            updatedProfile.save((err, updateProfile) => {
+                                if (err) handleError
+                            })
                         })
                     })
                 })
             })
-        })
+        }) 
+        
     })
-})
+}
 

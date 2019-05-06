@@ -17,11 +17,12 @@ router.get('/:id', (req, res) => {
     })
 })
 
-// Get post by profile
+
+// get post by user
 router.get('/:id/posts', (req, res) => {
-    db.Post.find({profile: req.params.id}, (err, foundPosts) => {
+    db.Post.find({profile: req.params.id}, (err, foundPost) => {
         if (err) return status(400).json({status: 400, err: 'something went wrong'});
-        res.json(foundPosts)
+        res.json(foundPost)
     })
 })
 

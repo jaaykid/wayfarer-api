@@ -19,13 +19,15 @@ router.get('/:id', (req, res) => {
     })
 })
 
-// get post by city 
-router.get('/:id/posts' , (req, res) => {
+
+//Get post by city
+router.get('/:id/cities', (req, res) => {
     db.Post.find({city: req.params.id}, (err, foundPost) => {
-        if (err) return console.log(err)
+        if (err) return status(400).json({status: 400, err: 'something went wrong'});
         res.json(foundPost)
     })
 })
+
 
 
 module.exports = router
