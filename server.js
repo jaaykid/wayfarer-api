@@ -41,7 +41,6 @@ app.use(bodyParser.json())
 
 // ---------------------------- API Routes -------------------------- //
 app.get('/', (req, res) => {
-   console.log(req.session)
    res.json({testing: "testing"})
 })
 

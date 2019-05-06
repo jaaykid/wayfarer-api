@@ -9,6 +9,7 @@ const ProfileSchema = new Schema ({
         type: Date,
         default: Date.now
     },
+    preferredCity: {type: Schema.Types.ObjectId, ref: 'City'}
 })
 
 

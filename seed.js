@@ -74,56 +74,67 @@ const newProfiles = [
     username: "thing1",
     password: '123', 
     profilePicture: "https://i.guim.co.uk/img/media/acb1627786c251362c4bc87c1f53fa39b49d8d3d/274_0_821_1026/master/821.jpg?width=700&quality=85&auto=format&fit=max&s=c15b1226144de3c52be32fe46f81f52d",
+    preferredCity: "San Francisco"
     },
     {
     username: "thing2",
     password: '123', 
     profilePicture: "https://www.merriam-webster.com/assets/mw/images/article/art-wap-article-main/egg-3442-e1f6463624338504cd021bf23aef8441@1x.jpg",
+    preferredCity: "Oakland"
     },
     {
     username: "thing3",
     password: '123', 
     profilePicture: "https://blog.za3k.com/wp-content/uploads/2015/03/default_profile_3.png",
+    preferredCity: "New York"
     },
     {
     username: "thing4",
     password: '123', 
     profilePicture: "https://blog.za3k.com/wp-content/uploads/2015/03/default_profile_3.png",
+    preferredCity: "Chicago"
     },
     {
     username: "thing5",
     password: '123', 
     profilePicture: "https://blog.za3k.com/wp-content/uploads/2015/03/default_profile_3.png",
+    preferredCity: "Chicago"
     },
     {
     username: "thing6",
     password: '123', 
     profilePicture: "https://blog.za3k.com/wp-content/uploads/2015/03/default_profile_3.png",
+    preferredCity: "Oakland"
     },
     {
     username: "thing7",
     password: '123', 
     profilePicture: "https://blog.za3k.com/wp-content/uploads/2015/03/default_profile_3.png",
+    preferredCity: "New York"
     },
     {
     username: "thing8",
     password: '123', 
     profilePicture: "https://blog.za3k.com/wp-content/uploads/2015/03/default_profile_3.png",
+    preferredCity: "San Francisco"
     },
     {
     username: "thing9",
     password: '123', 
     profilePicture: "https://blog.za3k.com/wp-content/uploads/2015/03/default_profile_3.png",
+    preferredCity: "San Francisco"
     },
     {
     username: "thing10",
     password: '123', 
     profilePicture: "https://blog.za3k.com/wp-content/uploads/2015/03/default_profile_3.png",
+    preferredCity: "San Francisco"
     },
     {
     username: "thing1",
     password: '123', 
     profilePicture: "https://blog.za3k.com/wp-content/uploads/2015/03/default_profile_3.png",
+    preferredCity: "San Francisco"
     },
 ]
 
@@ -139,19 +150,16 @@ const newCities = [
     city: "Chicago",
     image: "https://www.overseasattractions.com/wp-content/uploads/2017/08/chicago-at-night.jpg",
     description: "Come get some pizza",
-    cityId: 'CHI'
     },
     {
     city: "Oakland",
     image: "https://assets.simpleviewinc.com/simpleview/image/fetch/c_limit,q_80,w_1200/https://assets.simpleviewinc.com/simpleview/image/upload/crm/oakland/Hotels-Meeting-Spaces---Meeting-Event-Spaces---Oracle-Arena---HR14010_oracle-overview.jpg-2--3a0275935056a36_3a0276e6-5056-a36f-2321941c418c3633.jpg",
     description: "Lots of culture",
-    cityId: 'OAK'
     },
     {
     city: "New York",
     image: "https://s.hdnux.com/photos/51/44/10/10895907/3/920x920.jpg",
     description: "The city that never sleeps",
-    cityId: 'NY'
     },
 ]
 
@@ -167,6 +175,20 @@ db.Profile.deleteMany({}, (err, deletedProfiles) => {
                 db.Post.deleteMany({}, (err, deleted) => {
                     if (err) console.log(err)
                     console.log('deleted all posts')
+                })
+                newProfiles.forEach(profileData =>{
+                    const updatedProfile = new db.Profile({
+                        username : profileData.username,
+                        password : profileData.password, 
+                        profilePicture : profileData.profilePicture,
+                    })
+                    db.City.findOne({city: profileData.preferredCity}, (err, foundCity) => {
+                        if (err) handleError
+                        updatedProfile.preferredCity = foundCity
+                        updatedProfile.save((err, savedPost) => {
+                            if (err) handleError
+                        })
+                    })
                 })
                 newPosts.forEach(postData => {
                     const newPost = new db.Post({
