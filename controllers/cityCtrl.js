@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
 
 
 //Get post by city
-router.get('/:id/cities', (req, res) => {
+router.get('/:id/posts', (req, res) => {
     db.Post.find({city: req.params.id}, (err, foundPost) => {
         if (err) return status(400).json({status: 400, err: 'something went wrong'});
         res.json(foundPost)

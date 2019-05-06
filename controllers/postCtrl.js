@@ -18,7 +18,6 @@ router.get('/:id', (req, res) => {
     })
 }) 
 
-
 // create new post
 router.post('/', (req, res) => {
     let newPost = new db.Post(
