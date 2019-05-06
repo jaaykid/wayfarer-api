@@ -29,7 +29,7 @@ app.use(session({
     name: 'sid', 
     resave: false, 
     secret: 'chili cheese dog',
-    store: new MongoStore(options),
+    store: new MongoStore({mongooseConnection: mongoose.connection}),
     saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 15,
