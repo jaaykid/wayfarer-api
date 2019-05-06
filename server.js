@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const app = express();
 const PORT = process.env.PORT || 8000;
+const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 
 // Controllers 
