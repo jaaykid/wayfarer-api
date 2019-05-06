@@ -77,7 +77,6 @@ newPosts.forEach(postData => {
                 newPost.profile = foundProfile
                 newPost.save((err, savedPost) => {
                     if (err) handleError
-                    // console.log(savedPost)
              })
              db.City.findOne({city: postData.city}, (err, foundCity) => {
                  if (err) handleError
