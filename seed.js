@@ -164,7 +164,7 @@ const newCities = [
 ]
 
 
-function first() {
+{
     db.City.deleteMany({}, (err, deletedCities) => {
         if (err) handleError
         db.City.create(newCities, (err, allCities) => {
