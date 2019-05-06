@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const app = express();
 const PORT = process.env.PORT || 8000;
+const MongoStore = require('connect-mongo')(session);
 
 // Controllers 
 const profileCtrl = require('./controllers/profileCtrl');
@@ -28,6 +29,7 @@ app.use(session({
     name: 'sid', 
     resave: false, 
     secret: 'chili cheese dog',
+    store: new MongoStore(options),
     saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 15,
